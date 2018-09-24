@@ -16,7 +16,7 @@ export class HomePage {
     this.menu.swipeEnable(false);
   }
   ionViewDidLeave(){
-    this.menu.swipeEnable(true)
+    this.menu.swipeEnable(true);
   }
 
   login(){
