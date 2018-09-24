@@ -13,7 +13,7 @@ export class CategoriasPage {
 
   items: CategoriaDTO[];
   bucketUrl : string = API_CONIG.bucketbaseUrl;
-  
+
   constructor(
           public navCtrl: NavController, 
           public navParams: NavParams,
@@ -26,7 +26,8 @@ export class CategoriasPage {
                          .subscribe(
                             response => {
                                 this.items = response;
-                              }
+                              },
+                            error => {}
                          )
     ;
   }
