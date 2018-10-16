@@ -4,13 +4,6 @@ import { ProdutoDTO } from '../../models/produto.dto';
 import { ProdutoService } from '../../services/domain/produto.service';
 import { API_CONFIG } from '../../config/api.config';
 
-/**
- * Generated class for the ProdutosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-produtos',
@@ -28,6 +21,14 @@ export class ProdutosPage {
       ) {
   }
 
+  doRefresh(refresher) {
+    this.loadData();
+    setTimeout(() => {
+      refresher.complete();
+    }, 1000);
+  }
+
+
   presentLoading(){
     let loader = this.loadingCtrl.create({
       content: "Aguarde..."
@@ -37,6 +38,10 @@ export class ProdutosPage {
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  loadData(){
     let categoriaId = this.navParams.get('categoriaId');
     let loader = this.presentLoading();
     this.produtoService.findByCategoria(categoriaId)
@@ -49,6 +54,7 @@ export class ProdutosPage {
       error => {
         loader.dismiss();
       });
+
   }
 
   loadImageUrls(){
