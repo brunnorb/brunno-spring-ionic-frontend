@@ -24,6 +24,8 @@ export class OrderConfirmationPage {
 
   endereco: EnderecoDTO;
 
+  codPedido: string;
+
   constructor(
       public navCtrl: NavController, 
       public navParams: NavParams,
@@ -57,17 +59,26 @@ export class OrderConfirmationPage {
     this.navCtrl.setRoot('CartPage');
   }
 
+  home(){
+    this.navCtrl.setRoot('CategoriasPage');
+  }
+
   checkout(){
 
     this.pedidoService.insert(this.pedido)
       .subscribe(response => {
         this.cartService.createOrClearCart();
-        //console.log(response.headers.get('location'));
+        this.codPedido = this.extractID(response.headers.get('location'));
 
       },error => {
         if (error.status == 403) {
             this.navCtrl.setRoot('HomePage');
       }}
       );
+  }
+
+  private extractID(location:string): string {
+    let position = location.lastIndexOf('/');
+    return location.substring(position + 1, location.length);
   }
 }
